@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UDE:Procedure xmlns:UDE="http://www.sap.com/ndb/SQLCoreModelUDE.ecore" xmlns:DataTypes="http://www.sap.com/ndb/SQLCoreModelDataTypes.ecore" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="InsertRowGPSTracker" schemaVersion="2" procedureType="procedure" runWithInvokerPrivileges="true" language="SQLSCRIPT" accessMode="ReadWrite">
+<descriptions defaultDescription=""/>
+<metadata changedAt ="2014-07-07 12:28:17.609" createdAt="2014-07-07 11:46:50.706"/>
+<origin/>
+<schema id="_SYS_BIC"/>
+<definition>  
+BEGIN
+/***************************** 
+	Write your procedure logic 
+ *****************************/
+ 
+	declare lv_LAT string;
+	declare lv_LONG string;
+
+	SELECT
+		LAT,
+		LONG
+	INTO
+		lv_LAT,
+		lv_LONG
+	FROM :row;
+
+
+  if :lv_LAT = &apos;&apos;  then
+
+    error = select 400 as http_status_code, &apos;invalid LAT&apos; error_message, &apos;Must be filed&apos; detail from dummy;
+  else
+    
+    insert into &quot;GPSTRACKER&quot;.&quot;tracker.info.init::GPSTracker&quot;
+	   values (current_timestamp, current_date,
+		   lv_LAT,lv_LONG);
+
+  end if;
+END;</definition>
+<defaultSchema schemaName="SYSTEM"/>
+<parameters id="row" paramType="IN">
+  <typeReference schema="&quot;GPSTRACKER&quot;" name="&quot;tracker.info.init::GPSTracker&quot;"/>
+</parameters>
+<parameters id="error" paramType="OUT">
+  <typeReference schema="&quot;GPSTRACKER&quot;" name="&quot;tracker.info.init::error&quot;"/>
+</parameters>
+<localTableType>/*
+You can create new table types and use them as input and output parameters in a procedure.
+To do this, define the table types using SQl syntax, for example the following:
+CREATE TYPE &lt;Type Name&gt; AS TABLE (&lt;Field Name1&gt; &lt;Field Type1&gt;, &lt;Field Name2&gt; &lt;Field Type2&gt;,...);
+*/
+</localTableType>
+<header>CREATE PROCEDURE InsertRowGPSTracker (IN row &quot;GPSTRACKER&quot;.&quot;tracker.info.init::GPSTracker&quot;,OUT error &quot;GPSTRACKER&quot;.&quot;tracker.info.init::error&quot; ) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER 
+	--DEFAULT SCHEMA &lt;default_schema_name&gt;
+	--READS SQL DATA 
+	AS</header>
+</UDE:Procedure>

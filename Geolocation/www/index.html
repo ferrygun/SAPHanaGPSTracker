@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+		<script src="resources/sap-ui-core.js"
+				id="sap-ui-bootstrap"
+				data-sap-ui-libs="sap.m"
+				data-sap-ui-theme="sap_bluecrystal">
+		</script>
+		<!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
+
+		<!-- Custom Styles -->
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/index.js"></script> 
+		
+		<script type="text/javascript">
+			// Wait for Cordova to load      
+			document.addEventListener("deviceready", onDeviceReady, false);
+			var watchID = null;
+			// Cordova is ready
+			function onDeviceReady() {
+				// Get the most accurate position updates available on the
+				// device.
+				var options = { enableHighAccuracy: true };
+				watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+			}
+			// onSuccess Geolocation       
+			function onSuccess(position) {
+				var element = document.getElementById('geolocation');
+				element.innerHTML = 'Latitude: ' + position.coords.latitude + '<br />' +
+								'Longitude: ' + position.coords.longitude + '<br />' +
+								'<hr />' + element.innerHTML;
+
+				jQuery.sap.require("sap.ui.model.odata.datajs");
+				var sUrl = "http://hana2.vm.cld.sr:8000/tracker/info/service/GPSTracker.xsodata";
+				var oModel = new sap.ui.model.odata.ODataModel(sUrl, true, "userid", "password");
+
+				var oEntry = {};
+
+				oEntry.STIMESTAMP = '/Date(0000000000000)/'; 
+				oEntry.SDATE      = '/Date(0000000000000)/'; 
+				oEntry.LAT =  position.coords.latitude.toString();
+				oEntry.LONG = position.coords.longitude.toString();
+			
+				// oData Create
+				oModel.create('/GPSTracker', oEntry, null, 
+						function() { success = true;}, 
+						function() {  failure = true;}   );
+
+				if (failure == true) {
+    				alert("Create failed");
+				}
+				else {
+					alert("Data Saved!");
+				}
+
+			}
+			// clear the watch that was started earlier      
+			function clearWatch() {
+				if (watchID != null) {
+					navigator.geolocation.clearWatch(watchID);
+					watchID = null;
+				}
+			}
+			// onError Callback receives a PositionError object    
+			function onError(error) {
+				alert('code: ' + error.code + '\n' +
+				'message: ' + error.message + '\n');
+			}
+		</script>
+
+	</head>
+	<body class="sapUiBody" role="application">
+		<p id="geolocation">Watching geolocation...</p>
+    <button onclick="clearWatch();">Clear Watch</button>    
+		<div id="content"></div>
+
+	</body>
+</html>

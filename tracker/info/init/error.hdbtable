@@ -1,0 +1,9 @@
+table.schemaName = "GPSTRACKER";
+table.tableType = ROWSTORE;
+table.description = "error";
+table.loggingType = NOLOGGING;
+table.columns = [ 
+	{name = "HTTP_STATUS_CODE"; sqlType = INTEGER;}, 
+	{name = "ERROR_MESSAGE"; sqlType = NVARCHAR; length = 100;}, 
+	{name = "DETAIL"; sqlType = NVARCHAR; length = 100;} 
+];

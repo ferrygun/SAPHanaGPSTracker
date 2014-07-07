@@ -1,0 +1,7 @@
+role tracker.info.init::UpdateGPS {
+	schema tracker.info.init:GPSTRACKER.hdbschema: SELECT;
+	package tracker: REPO.READ, REPO.EDIT_NATIVE_OBJECTS, REPO.ACTIVATE_NATIVE_OBJECTS, REPO.MAINTAIN_NATIVE_PACKAGES;
+	
+	sql object tracker.info.init:GPSTracker.hdbtable: SELECT, INSERT, UPDATE, DELETE;
+
+}

@@ -1,0 +1,6 @@
+service namespace "tracker.info.service" {  
+     
+     "GPSTRACKER"."tracker.info.init::GPSTracker" as "GPSTracker"
+     create using "tracker.info.service::InsertRowGPSTracker";
+
+} 

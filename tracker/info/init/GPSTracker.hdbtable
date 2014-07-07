@@ -1,0 +1,12 @@
+table.schemaName = "GPSTRACKER";
+table.tableType = COLUMNSTORE;
+table.description = "GPSTRACKER";
+table.loggingType = NOLOGGING;
+table.columns = [
+	{name = "STIMESTAMP"; sqlType = TIMESTAMP;  nullable = true;},
+	{name = "SDATE"; sqlType = DATE; nullable = true;},
+	{name = "LAT"; sqlType = NVARCHAR; length = 50; nullable = true;},
+	{name = "LONG"; sqlType = NVARCHAR; length = 50; nullable = true;}
+
+];  
+table.primaryKey.pkcolumns = ["STIMESTAMP"];

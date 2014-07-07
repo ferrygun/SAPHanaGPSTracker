@@ -25,7 +25,7 @@ sap.ui.jsview("gps.GPS", {
 
 	    
 	    //Define Table (needs sap.ui.table)
-		var oTable = new sap.ui.table.Table("GPS", {tableId: "GPSId",visibleRowCount: 5,
+		var oTable = new sap.ui.table.Table("GPS", {tableId: "GPSId",visibleRowCount: 5, 
 			toolbar: new sap.ui.commons.Toolbar({items: [ 
 			new sap.ui.commons.Button({text: "Refresh Data", press: function() { oController.oModel.refresh(); } })
 			]})
@@ -36,7 +36,7 @@ sap.ui.jsview("gps.GPS", {
 		// ADD COLUMNS
 		//Prepare column to easily allow formating etc
 		vCol = "STIMESTAMP";
-		oControl = new sap.ui.commons.TextField().bindProperty("value",vCol);  
+		oControl = new sap.ui.commons.TextField({editable:false}).bindProperty("value",vCol);  
 		//Add
 		oTable.addColumn(new sap.ui.table.Column({label:new sap.ui.commons.Label({text: "Timestamp" }), 
             template: oControl,   
@@ -45,7 +45,7 @@ sap.ui.jsview("gps.GPS", {
                       }));  
 		
 		vCol = "LAT"; 
-		oControl = new sap.ui.commons.TextField().bindProperty("value",vCol);  
+		oControl = new sap.ui.commons.TextField({editable:false}).bindProperty("value",vCol);  
 		//Add
 		oTable.addColumn(new sap.ui.table.Column({label:new sap.ui.commons.Label({text: "Latitude" }), 
             template: oControl,   
@@ -54,7 +54,7 @@ sap.ui.jsview("gps.GPS", {
                       }));  
 
 		vCol = "LONG"; 
-		oControl = new sap.ui.commons.TextField().bindProperty("value",vCol);  
+		oControl = new sap.ui.commons.TextField({editable:false}).bindProperty("value",vCol);  
 		//Add
 		oTable.addColumn(new sap.ui.table.Column({label:new sap.ui.commons.Label({text: "Longitude" }), 
             template: oControl,   

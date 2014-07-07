@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+		<script src="https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js"  
+				id="sap-ui-bootstrap"
+				data-sap-ui-libs="sap.m,sap.makit,sap.ui.commons,sap.ui.table,sap.ui.ux3" 
+				data-sap-ui-theme="sap_goldreflection"> 
+		</script>
+
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+		<script>
+				sap.ui.localResources("gps");
+				var view = sap.ui.view({id:"idGPS1", viewName:"gps.GPS", type:sap.ui.core.mvc.ViewType.JS});
+				view.placeAt("content");
+		</script>
+		
+		 
+
+	</head>
+	<body class="sapUiBody" role="application">
+		<div id="content"></div>
+		<div id='map_canvas' style='width: 100%; height: 350px;'></div>
+	</body>
+</html>

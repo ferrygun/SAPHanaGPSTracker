@@ -20,7 +20,7 @@ sap.ui.jsview("gps.GPS", {
 		jQuery.sap.require("sap.ui.core.IconPool");
 			    
 		
-	    oController.oModel = new sap.ui.model.odata.ODataModel("http://hana2.vm.cld.sr:8000/tracker/info/service/GPSTracker.xsodata",true, "SYSTEM", "manager");
+	    oController.oModel = new sap.ui.model.odata.ODataModel("http://hana2.vm.cld.sr:8000/tracker/info/service/GPSTracker.xsodata",true, "userid", "password");
 	    oController.oModel.setHeaders({"content-type" : "application/json;charset=UTF-8"}); 
 
 	    
